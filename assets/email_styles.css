@@ -1,0 +1,65 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+table.dataframe {
+  width: 100%;
+  border-collapse: separate;  /* Use separate for border-radius to work properly */
+  border-spacing: 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  border: 1px solid #8563d2;  /* Outer border */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table.dataframe thead {
+  background-color: #f5e9ff;
+  color: #000;
+}
+
+table.dataframe th, table.dataframe td {
+  padding: 14px 16px;
+  border-bottom: 1.5px solid #d4d4d4;
+  text-align: left;
+}
+
+table.dataframe th {
+  border-bottom: 2.5px solid #4b236f;
+  font-weight: 600;
+}
+
+/* Rounded corners on the bottom corners */
+table.dataframe tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+table.dataframe tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+table.dataframe tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table.dataframe tbody tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+table.dataframe a {
+  color: #5a2a83;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+table.dataframe a:hover {
+  text-decoration: underline;
+  color: #7a4db8;
+}
