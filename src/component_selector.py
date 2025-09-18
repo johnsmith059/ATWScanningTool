@@ -38,9 +38,23 @@ def render_component_selector():
     selected_area = st.selectbox("Select Product Area", options=product_areas)
 
     available_components = product_map.get(selected_area, [])
+    
+    # Handle select all functionality
+    if "select_all_clicked" in st.session_state and st.session_state.select_all_clicked:
+        default_components = available_components
+        st.session_state.select_all_clicked = False
+    else:
+        default_components = st.session_state.get("components_to_check", [])
+    
     selected_components = st.multiselect(
         "Select Components",
         options=available_components,
+        default=default_components,
         key="components_to_check"
     )
+    
+    if st.button("Select All", key="select_all_components"):
+        st.session_state.select_all_clicked = True
+        st.rerun()
+    
     return selected_area, selected_components
