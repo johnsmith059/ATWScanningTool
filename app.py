@@ -34,7 +34,6 @@ if "scan_results_df" not in st.session_state:
 
 selected_product_area, components_to_check = render_component_selector()
 st.session_state.selected_product_area = selected_product_area
-components_to_check = st.session_state.components_to_check
 
 def run_scan():
     st.session_state.running = True
