@@ -120,6 +120,7 @@ def run_scan():
 
     if results:
         df = pd.DataFrame(results)
+        df = df.sort_values(by="Track", ascending=False)
         html_table = df.to_html(escape=False, index=False)
 
         st.session_state.scan_results_df = df
