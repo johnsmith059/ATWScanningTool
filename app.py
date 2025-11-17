@@ -34,7 +34,6 @@ if "scan_results_df" not in st.session_state:
 
 selected_product_area, components_to_check = render_component_selector()
 st.session_state.selected_product_area = selected_product_area
-components_to_check = st.session_state.components_to_check
 
 def run_scan():
     st.session_state.running = True
@@ -72,7 +71,7 @@ def run_scan():
                 detail_url = row['Link']
                 detail_html = get_html(detail_url)
   
-                component_counts = parse_details_page(detail_html, components_to_check)
+                component_counts = parse_details_page(detail_html, st.session_state.components_to_check)
 
                 for comp, count in component_counts.items():
                     filtered_url = detail_url.replace("component=All", f"component={comp.upper()}")
