@@ -41,6 +41,10 @@ def parse_support_track_page(html, base_url):
             tool_name = cols[tool_name_idx].get_text(strip=True)
             link_tag = cols[details_idx].find('a')
             link = urljoin(base_url, link_tag['href']) if link_tag and link_tag.has_attr('href') else None
+            
+            # Ensure the link is filtered for errors only
+            if link and 'result=All' in link:
+                link = link.replace('result=All', 'result=Error')
 
             rows_data.append({
                 'Track': track_name,
@@ -59,6 +63,8 @@ def parse_details_page(html, components_to_check):
     headers = [th.get_text(strip=True).lower() for th in table.find_all('th')]
     try:
         component_idx = headers.index('component')
+        # Also get the result type column to filter for errors only
+        result_idx = headers.index('result type') if 'result type' in headers else None
     except ValueError:
         return {}  
 
@@ -68,6 +74,13 @@ def parse_details_page(html, components_to_check):
         cols = row.find_all('td')
         if not cols or len(cols) <= component_idx:
             continue
+        
+        # Only count if it's an error (check result type column)
+        if result_idx is not None and len(cols) > result_idx:
+            result_type = cols[result_idx].get_text(strip=True).lower()
+            if result_type != 'error':
+                continue  # Skip non-error rows
+        
         comp_name = cols[component_idx].get_text(strip=True)
 
         for c in components_to_check:
